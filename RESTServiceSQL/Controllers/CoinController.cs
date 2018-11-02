@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using RESTServiceSQL.Model;
-using MySqlConnector;
+// using MySqlConnector;
 using MySql.Data.MySqlClient;
 
-namespace SQLRestCustomerService.Controllers
+namespace SQLRestCoinService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -16,12 +16,12 @@ namespace SQLRestCustomerService.Controllers
     {
         private const string connection = "server=192.168.122.105; uid=root; pwd=password; database=CoinDB";
         
-        // GET: api/Customers
+        // GET: api/Coins
         [HttpGet]
         public List<Coin> Get()
         {
             var result = new List<Coin>();
-            var sql = "SELECT * FROM Customer";
+            var sql = "SELECT * FROM Coin";
             var db = new MySqlConnection(connection);
             db.Open();
 
@@ -32,18 +32,18 @@ namespace SQLRestCustomerService.Controllers
             {
                 while (reader.Read())
                 {
-                    result.Add(new Coin(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(3)));
+                    result.Add(new Coin(reader.GetInt32(0), reader.GetString(1), reader.GetDouble(2), reader.GetString(3)));
                 }
             }
             return result;
         }
 
-        // GET: api/Customers/1
+        // GET: api/Coins/1
         [HttpGet("{id}")]
         public Coin Get(int id)
         {
             Coin result = null;
-            var sql = $"SELECT * FROM Customer WHERE id = '{id}'";
+            var sql = $"SELECT * FROM Coin WHERE id = '{id}'";
             var db = new MySqlConnection(connection);
             db.Open();
 
@@ -54,17 +54,17 @@ namespace SQLRestCustomerService.Controllers
             {
                 while (reader.Read())
                 {
-                    result = new Coin(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetInt32(3));
+                    result = new Coin(reader.GetInt32(0), reader.GetString(1), reader.GetDouble(2), reader.GetString(3));
                 }
             }
             return result;
         }
 
-        // POST api/Customers
+        // POST api/Coins
         [HttpPost]
-        public void InsertCustomer(Coin coin)
+        public void InsertCoin(Coin coin)
         {
-            var sql = "INSERT INTO Customer (id, firstName, lastName, cYear)" +
+            var sql = "INSERT INTO Coin (Id, Genstand, Bud, Navn)" +
             $"VALUES (NULL, '{coin.Genstand}', '{coin.Bud}', '{coin.Navn}')";
             var db = new MySqlConnection(connection);
             db.Open();
@@ -73,12 +73,12 @@ namespace SQLRestCustomerService.Controllers
             var reader = command.ExecuteReader();
         }
 
-        // PUT api/Customers/5
+        // PUT api/Coins/5
         [HttpPut("{id}")]
-        public void UpdateCustomer(int id, [FromBody] Coin customer)
+        public void UpdateCoin(int id, [FromBody] Coin coin)
         {
-            var sql = $"UPDATE Customer SET firstName = '{customer.FirstName}', " +
-            $"lastName = '{customer.LastName}', cYear = '{customer.Year}' WHERE id='{id}'";
+            var sql = $"UPDATE Coin SET Genstand = '{coin.Genstand}', " +
+            $"Bud = '{coin.Bud}', Navn = '{coin.Navn}' WHERE Id='{id}'";
             var db = new MySqlConnection(connection);
             db.Open();
 
@@ -86,11 +86,11 @@ namespace SQLRestCustomerService.Controllers
             var reader = command.ExecuteReader();
         }
 
-        // DELETE api/Customers/5
+        // DELETE api/Coins/5
         [HttpDelete("{id}")]
-        public void DeleteCustomer(int id)
+        public void DeleteCoin(int id)
         {
-            var sql = $"DELETE FROM Customer WHERE id='{id}'";
+            var sql = $"DELETE FROM Coin WHERE id='{id}'";
             var db = new MySqlConnection(connection);
             db.Open();
 
