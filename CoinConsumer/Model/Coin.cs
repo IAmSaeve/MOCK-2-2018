@@ -15,9 +15,11 @@ namespace CoinConsumer.Model
             Navn = navn;
         }
 
-        public Coin()
+        public Coin(){}
+
+        public override string ToString()
         {
-            
+            return $"{nameof(Id)}: {Id}, {nameof(Genstand)}: {Genstand}, {nameof(Bud)}: {Bud}, {nameof(Navn)}: {Navn}";
         }
     }
 }
