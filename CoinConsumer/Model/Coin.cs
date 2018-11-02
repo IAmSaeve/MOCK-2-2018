@@ -1,4 +1,4 @@
-namespace RESTService.Model
+namespace CoinConsumer.Model
 {
     public class Coin
     {
