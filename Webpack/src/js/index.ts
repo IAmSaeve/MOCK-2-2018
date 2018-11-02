@@ -43,6 +43,8 @@ function ShowAllCoins() {
                 BUD.innerText = c.bud.toString();
                 NAVN.innerText = c.navn.toString();
             });
+        }).catch((error) => {
+            console.error(error);
         });
 }
 
@@ -65,6 +67,8 @@ function ShowACoin() {
             GENSTAND.innerText = c.genstand.toString();
             BUD.innerText = c.bud.toString();
             NAVN.innerText = c.navn.toString();
+        }).catch((error) => {
+            console.error(error);
         });
 }
 
@@ -78,7 +82,7 @@ function PostCoin() {
     };
 
     // Send data
-    axios.post(uri, data);
+    axios.post(uri, data).catch((error) => console.error(error));
 
     // Clear input fields
     postCoinIdInput.value = "";

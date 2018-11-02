@@ -23,23 +23,24 @@ namespace RESTService.Controllers
 
         // GET api/Coin
         [HttpGet]
-        public ActionResult<List<Coin>> GetCoins()
+        public List<Coin> GetCoins()
         {
             return coinList;
         }
 
         // GET api/Coin/5
         [HttpGet("{id}")]
-        public ActionResult<Coin> GetOneCoin(int id)
+        public Coin GetOneCoin(int id)
         {
             return coinList.Find((c) => c.Id == id);
         }
 
         // POST api/Coin
         [HttpPost]
-        public void AddCoin([FromBody] Coin coin)
+        public Coin AddCoin([FromBody] Coin coin)
         {
             coinList.Add(coin);
+            return coin;
         }
 
         // PUT api/Coin/5
