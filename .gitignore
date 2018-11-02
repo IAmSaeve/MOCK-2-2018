@@ -1,5 +1,12 @@
 .vscode
 .directory
+[Nn]ode_modules/
+[Dd]ist/
+.DS_Store
+*.log
+.idea
+.eslintcache
+package-lock.json
 
 compiledService/
 
