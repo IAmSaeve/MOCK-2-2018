@@ -14,5 +14,10 @@ namespace CoinConsumer.Model
             Bud = bud;
             Navn = navn;
         }
+
+        public Coin()
+        {
+            
+        }
     }
 }
